@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_item1"
+        android:title="• Estatísticas" />
+    <item
+        android:id="@+id/nav_item2"
+        android:title="• Check-In" />
+    <item
+        android:id="@+id/nav_item3"
+        android:title="• Suporte" />
+</menu>
