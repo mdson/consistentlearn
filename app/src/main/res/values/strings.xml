@@ -2,4 +2,7 @@
     <string name="app_name">Consistent Learn</string>
     <string name="navigation_drawer_open" />
     <string name="navigation_drawer_close" />
+    <string name="edit_name_hint" />
+    <string name="edit_email_hint" />
+    <string name="edit_password_hint" />
 </resources>

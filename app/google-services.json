@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "396395993292",
+    "project_id": "projeto-20b54",
+    "storage_bucket": "projeto-20b54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396395993292:android:9b817b39090b7c91854a69",
+        "android_client_info": {
+          "package_name": "madson.ifpe.edu.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396395993292-vd0onds76vd0ncg2smq8ro8lgt1g3qto.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC58dMoc0ugfnMzO7DdV3hIf_ZO6s-uwGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396395993292-vd0onds76vd0ncg2smq8ro8lgt1g3qto.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

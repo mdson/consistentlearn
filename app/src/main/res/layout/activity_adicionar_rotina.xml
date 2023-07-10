@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".AdicionarRotinaActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".AdicionarRotinaActivity">
 
     <TextView
         android:id="@+id/textViewTitulo"
@@ -17,12 +22,7 @@
         android:gravity="center"
         android:padding="16dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp">
+
 
         <TextView
         android:layout_width="wrap_content"
@@ -39,49 +39,91 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dias da semana da rotina:"
+            android:text="Selecione os dias da semana para receber notificações:"
             android:textSize="18sp"
-            android:layout_gravity="center_vertical"/>
-        <EditText
-            android:id="@+id/editTextData"
-            android:layout_width="match_parent"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_monday"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Selecione uma data"
-            android:clickable="true"
-            android:focusable="false" />
+            android:text="Segunda-feira"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_tuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terça-feira"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_wednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quarta-feira"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_thursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quinta-feira"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_friday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sexta-feira"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sábado"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_sunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Domingo"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Intervalo de tempo da rotina:"
+            android:text="Selecione um horário para receber as notificações:"
             android:textSize="18sp"
-            android:layout_gravity="center_vertical"/>
-        <EditText
-            android:id="@+id/editTextHora"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Selecione um intervalo de hora"
-            android:clickable="true"
-            android:focusable="false" />
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Selecionar Horário"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+            <TextView
+                android:id="@+id/txt_selected_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"/>
 
-        <!-- Botão Logar -->
+        </LinearLayout>
+
         <Button
-            android:id="@+id/btnEnviar"
+            android:id="@+id/btn_schedule_notifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Criar Rotina"
-            android:textColor="#FFFFFF"
-            android:background="#0000FF"
-            android:layout_gravity="center_horizontal" />
-
+            android:text="Agendar Notificações"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"/>
     </LinearLayout>
+</RelativeLayout>
 
-</LinearLayout>
