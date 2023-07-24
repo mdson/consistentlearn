@@ -2,10 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/rotinasList"
+        android:title="• Rotinas " />
+    <item
         android:id="@+id/nav_item1"
         android:title="• Estatísticas" />
     <item
-        android:id="@+id/nav_item2"
+        android:id="@+id/btnCheckIn"
         android:title="• Check-In" />
     <item
         android:id="@+id/nav_item3"

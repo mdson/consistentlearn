@@ -61,16 +61,13 @@ public class AdicionarRotinaActivity extends AppCompatActivity implements
     private Button btnScheduleNotifications;
     private EditText edit_name;
     public List<NotificationList> notificationsList = new ArrayList<>();
-    private FirebaseAuth fbAuth;
-    private FirebaseAuthListener authListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_rotina);
 
-        this.fbAuth = FirebaseAuth.getInstance();
-        this.authListener = new FirebaseAuthListener(this);
 
         selectedDays = new ArrayList<>();
         edit_name = findViewById(R.id.edit_name);
@@ -96,6 +93,14 @@ public class AdicionarRotinaActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 scheduleNotifications();
+            }
+        });
+
+        Button btnVoltar = findViewById(R.id.btn_voltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // This will return to the previous activity (main activity).
             }
         });
     }
@@ -163,57 +168,41 @@ public class AdicionarRotinaActivity extends AppCompatActivity implements
             return;
         }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-
-        // Cria o gerenciador de notificações
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // Cria o canal de notificação (apenas se estiver no Android Oreo ou posterior)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("channel_id", "Nome do Canal", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        // Cria um intent para abrir a MainActivity quando a notificação for clicada
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
-
-        // Cria a notificação
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
-                //.setSmallIcon(R.drawable.ic_notification)
-                .setSmallIcon(android.R.drawable.ic_dialog_alert)
-                .setContentTitle("Título da Notificação")
-                .setContentText("Conteúdo da Notificação")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(contentIntent)
-                .setAutoCancel(true);
-
-        // Obtém um identificador único para a notificação (pode ser usado para atualizar ou cancelar a notificação posteriormente)
-        int notificationId = (int) System.currentTimeMillis();
-
+        // Agenda as notificações usando o MyNotificationReceiver
         for (String day : selectedDays) {
             int dayOfWeek = getDayIndex(day);
 
             if (dayOfWeek != -1) {
                 Calendar notificationTime = getNextNotificationTime(dayOfWeek);
-
-                // Agenda a notificação para o horário selecionado e repetição semanal
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                int requestCode = dayOfWeek * 10000 + hourOfDay * 100 + minute;
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, notificationIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, notificationTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+                scheduleNotificationForDay(notificationTime, edit_name.getText().toString());
             }
         }
 
-        notificationManager.notify(notificationId, builder.build());
         addNotificationList(selectedDays, hourOfDay, minute, edit_name.getText().toString());
 
         Toast.makeText(this, "Atividade agendada com sucesso!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void scheduleNotificationForDay(Calendar notificationTime, String title) {
+        Intent notificationReceiverIntent = new Intent(this, MyNotificationReceiver.class);
+        notificationReceiverIntent.putExtra("title", title); // Passa o título da notificação para o BroadcastReceiver
+
+        int requestCode = (int) System.currentTimeMillis();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, notificationReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, notificationTime.getTimeInMillis(), pendingIntent);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, notificationTime.getTimeInMillis(), pendingIntent);
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, notificationTime.getTimeInMillis(), pendingIntent);
+            }
+        }
     }
 
     private Calendar getNextNotificationTime(int dayOfWeek) {
@@ -269,14 +258,4 @@ public class AdicionarRotinaActivity extends AppCompatActivity implements
         NotificationData.addNotification(notificacao);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        fbAuth.addAuthStateListener(authListener);
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        fbAuth.removeAuthStateListener(authListener);
-    }
 }

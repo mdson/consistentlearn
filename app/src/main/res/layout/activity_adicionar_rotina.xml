@@ -12,7 +12,8 @@
         android:padding="16dp"
         tools:context=".AdicionarRotinaActivity">
 
-    <TextView
+
+        <TextView
         android:id="@+id/textViewTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -124,6 +125,20 @@
             android:text="Agendar Notificações"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"/>
+
+        <Button
+            android:id="@+id/btn_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Cancelar"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#FF0000"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
     </LinearLayout>
 </RelativeLayout>
 

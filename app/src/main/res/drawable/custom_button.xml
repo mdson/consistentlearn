@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fundo do botão -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/darker_gray" />
+        </shape>
+    </item>
+
+    <!-- Barra de carregamento que será preenchida -->
+    <item android:id="@android:id/progress">
+        <clip
+            android:clipOrientation="horizontal"
+            android:gravity="start">
+            <shape android:shape="rectangle">
+                <solid android:color="@color/colorAccent" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

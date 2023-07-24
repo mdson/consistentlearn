@@ -129,8 +129,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_item1:
                 Toast.makeText(this, "Item 1 selecionado", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_item2:
-                Toast.makeText(this, "Item 2 selecionado", Toast.LENGTH_SHORT).show();
+            case R.id.btnCheckIn:
+                Intent intent = new Intent(MainActivity.this, CheckInActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_item3:
                 Toast.makeText(this, "Item 3 selecionado", Toast.LENGTH_SHORT).show();
@@ -143,6 +144,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     Toast.makeText(MainActivity.this, "Erro!", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.rotinasList:
+                Intent intent2 = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent2);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
